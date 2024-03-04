@@ -1,0 +1,10 @@
+{% extends 'include/base.html' %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <button class="btn-dark"> send </button>
+    </form>
+
+
+{% endblock content %}
