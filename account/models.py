@@ -5,17 +5,18 @@ from django.contrib.auth.models import (
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, phone_number, full_name,password=None):
+    def create_user(self, email, full_name, phone_number, password=None):
         """
         Creates and saves a User with the given email,phone_number and full_name and password.
      """
 
         user = self.model(
 
-            email=email,
 
+            email=email,
+            full_name=full_name,
             phone_number=phone_number,
-            full_name=full_name
+
 
         )
 
@@ -40,7 +41,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(
-        verbose_name='email address',
+
         max_length=255,
         unique=True,
         null=True,

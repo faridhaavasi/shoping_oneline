@@ -50,3 +50,7 @@ class UserRegisterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['email', 'phone_number', 'full_name', 'password']
+
+
+class UserverifyCodeForm(forms.Form):
+    code = forms.CharField(max_length=4)
