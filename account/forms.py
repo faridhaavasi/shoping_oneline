@@ -54,3 +54,12 @@ class UserRegisterForm(forms.ModelForm):
 
 class UserverifyCodeForm(forms.Form):
     code = forms.CharField(max_length=4)
+
+
+
+class UserLoginForm(forms.Form):
+    phone_number = forms.CharField(max_length=11)
+    password = forms.CharField(widget=forms.PasswordInput())
+
+
+

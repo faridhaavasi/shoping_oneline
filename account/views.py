@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views import View
 from .models import User, Otp
-from .forms import UserRegisterForm, UserverifyCodeForm
+from .forms import UserRegisterForm, UserverifyCodeForm, UserLoginForm
 from random import randint
-
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -67,3 +67,14 @@ class UserVerifycodeView(View):
             messages.success(request, 'code is not match')
 
         return render(request, 'accounts/verifycode.html', {'form': form})
+
+class UserLoginView(View):
+    form_class = UserLoginForm
+    def get(self, request):
+        form = self.form_class()
+        return render(request, 'accounts/login.html',{'form': form})
+
+
+
+
+
