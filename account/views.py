@@ -10,10 +10,11 @@ from django.contrib.auth import authenticate, login
 
 class UserRegisterView(View):
     form_class = UserRegisterForm
+    template_name = 'accounts/user_register.html'
 
     def get(self, request):
         form = self.form_class()
-        return render(request, 'accounts/user_register.html', {'form': form})
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
         form = self.form_class(data=request.POST)
@@ -32,15 +33,16 @@ class UserRegisterView(View):
             )
             messages.success(request, 'send sms code fpr you')
             return redirect('accounts:verify_code')
-        return render(request, 'accounts/user_register.html', {'form': form})
+        return render(request, self.template_name, {'form': form})
 
 
 class UserVerifycodeView(View):
     form_class = UserverifyCodeForm
+    template_name = 'accounts/verifycode.html'
 
     def get(self, request):
         form = self.form_class()
-        return render(request, 'accounts/verifycode.html', {'form': form})
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
         form = self.form_class(data=request.POST)
@@ -66,13 +68,14 @@ class UserVerifycodeView(View):
 
             messages.success(request, 'code is not match')
 
-        return render(request, 'accounts/verifycode.html', {'form': form})
+        return render(request, self.template_name, {'form': form})
 
 class UserLoginView(View):
     form_class = UserLoginForm
+    template_name = 'accounts/login.html'
     def get(self, request):
         form = self.form_class()
-        return render(request, 'accounts/login.html',{'form': form})
+        return render(request, self.template_name,{'form': form})
     def post(self, request):
         form = self.form_class(data=request.POST)
         if form.is_valid():
@@ -84,7 +87,7 @@ class UserLoginView(View):
                 return redirect('home:home_page')
             else:
                 return redirect('accounts:user_login')
-        return render(request, 'accounts/login.html', {'form': form})
+        return render(request, self.template_name, {'form': form})
 
 
 
