@@ -73,6 +73,18 @@ class UserLoginView(View):
     def get(self, request):
         form = self.form_class()
         return render(request, 'accounts/login.html',{'form': form})
+    def post(self, request):
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            clean_data = form.cleaned_data
+            user = authenticate(User, phone_number=clean_data['phone_number'], password=clean_data['password'])
+            if user:
+                login(request, user)
+                messages.success(request, 'you are login')
+                return redirect('home:home_page')
+            else:
+                return redirect('accounts:user_login')
+        return render(request, 'accounts/login.html', {'form': form})
 
 
 
