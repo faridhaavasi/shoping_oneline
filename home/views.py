@@ -15,3 +15,12 @@ class ListOfProductsView(View):
         products = Product.objects.available_True_manager()
         return render(request, self.template_name, {'products': products})
 
+
+class DetailProductView(View):
+    template_name = 'home/product_detail.html'
+    def get(self, request, slug):
+        product = Product.objects.get(slug=slug)
+        return render(request, self.template_name, {'product': product})
+
+
+

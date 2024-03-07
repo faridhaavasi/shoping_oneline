@@ -1,8 +1,9 @@
 {% extends 'include/base.html' %}
 
 {% block content %}
-
-
-
-
+    {{ product.name }}
+    <br>
+    <img src="{{ product.image.url }}">
+    <br>
+    {{ product.description }}
 {% endblock content %}
