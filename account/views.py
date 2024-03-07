@@ -5,7 +5,7 @@ from .models import User, Otp
 from .forms import UserRegisterForm, UserverifyCodeForm, UserLoginForm
 from random import randint
 from django.contrib.auth import authenticate, login
-
+from .utils import sms_otp_code
 # Create your views here.
 
 class UserRegisterView(View):
@@ -31,6 +31,7 @@ class UserRegisterView(View):
                 phone_number=request.session['user_register_info']['phone_number'],
                 code=instace_code
             )
+            #sms_otp_code(phone_number=clean_data['phone_number'], code=instace_code)
             messages.success(request, 'send sms code fpr you')
             return redirect('accounts:verify_code')
         return render(request, self.template_name, {'form': form})
