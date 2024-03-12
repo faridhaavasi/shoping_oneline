@@ -4,7 +4,7 @@ from django.views import View
 from .models import User, Otp
 from .forms import UserRegisterForm, UserverifyCodeForm, UserLoginForm
 from random import randint
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,  logout
 from .utils import sms_otp_code
 # Create your views here.
 
@@ -92,5 +92,9 @@ class UserLoginView(View):
 
 
 
-
+class UserLogoutView(View):
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        logout(request, user)
+        messages.success(request, 'logouted', 'success')
 
