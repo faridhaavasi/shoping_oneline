@@ -81,7 +81,7 @@ class UserLoginView(View):
         form = self.form_class(data=request.POST)
         if form.is_valid():
             clean_data = form.cleaned_data
-            user = authenticate(User, phone_number=clean_data['phone_number'], password=clean_data['password'])
+            user = authenticate(request, phone_number=clean_data['phone_number'], password=clean_data['password'])
             if user:
                 login(request, user)
                 messages.success(request, 'you are login')
