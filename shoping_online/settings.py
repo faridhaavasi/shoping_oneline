@@ -136,3 +136,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
+# ARVAN CLOUD STORAGE SETTINGS
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = '902516a6-4716-4352-a7d7-349819345949'
+AWS_SECRET_ACCESS_KEY = '6af9e7f000ebd0e0f960998751e4ca8e5ffe6159f0b8ce335108b3a60129ac74'
+AWS_S3_ENDPOINT_URL = 'https://shopingdjango.s3.ir-thr-at1.arvanstorage.ir'
+AWS_STORAGE_BUCKET_NAME = 'shopingdjango'
+AWS_SERVICE_NAME = 's3'
+AWS_S3_FILE_OVERWRITE = False
+AWS_LOCAL_STORAGE = f'{BASE_DIR}/aws/'
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
+
+
+
+
+
+
+
