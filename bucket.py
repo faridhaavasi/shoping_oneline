@@ -4,6 +4,7 @@ from django.conf import settings
 class Bucket:
     '''
     connect in arvan clod bucket  whit boto3
+    get object in bucket
     '''
     def __int__(self):
         session = boto3.session.Session()
@@ -21,3 +22,6 @@ class Bucket:
             return result['Contents']
         else:
             return None
+
+
+bucket = Bucket() #instance in bucket
