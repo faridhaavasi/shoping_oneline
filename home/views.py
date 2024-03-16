@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Product
+from . import tasks
+
 # Create your views here.
 
 class HomePage(View):
@@ -21,6 +23,18 @@ class DetailProductView(View):
     def get(self, request, slug):
         product = Product.objects.get(slug=slug)
         return render(request, self.template_name, {'product': product})
+
+
+
+
+class BucketHome(View):
+	template_name = 'home/bucket.html'
+	def get(self, request):
+		objects = tasks.all_bucket_objects_task()
+		return render(request, self.template_name, {'objects':objects})
+
+
+
 
 
 
