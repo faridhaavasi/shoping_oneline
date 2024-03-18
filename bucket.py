@@ -6,7 +6,8 @@ class Bucket:
     connect in arvan clod bucket  whit boto3
     get object in bucket
     '''
-    def __int__(self):
+
+    def __init__(self):
         session = boto3.session.Session()
         self.conn = session.client(
             service_name=settings.AWS_SERVICE_NAME,

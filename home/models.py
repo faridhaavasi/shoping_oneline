@@ -22,7 +22,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True, max_length=50, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product')
     description = models.TextField()
-    image = models.ImageField(upload_to='products/images/%Y/%m/%d')
+    image = models.ImageField()
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
