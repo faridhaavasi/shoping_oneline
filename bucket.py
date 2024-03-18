@@ -1,11 +1,15 @@
 import boto3
 from django.conf import settings
 
+
 class Bucket:
-    '''
-    connect in arvan clod bucket  whit boto3
-    get object in bucket
-    '''
+    """CDN Bucket manager
+
+    init method creates connection.
+
+    NOTE:
+        none of these methods are async. use public interface in tasks.py modules instead.
+    """
 
     def __init__(self):
         session = boto3.session.Session()
@@ -16,7 +20,6 @@ class Bucket:
             endpoint_url=settings.AWS_S3_ENDPOINT_URL,
         )
 
-
     def get_objects(self):
         result = self.conn.list_objects_v2(Bucket=settings.AWS_STORAGE_BUCKET_NAME)
         if result['KeyCount']:
@@ -24,5 +27,13 @@ class Bucket:
         else:
             return None
 
+    def delete_object(self, key):
+        self.conn.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=key)
+        return True
 
-bucket = Bucket() #instance in bucket
+    def download_object(self, key):
+        with open(settings.AWS_LOCAL_STORAGE + key, 'wb') as f:
+            self.conn.download_fileobj(settings.AWS_STORAGE_BUCKET_NAME, key, f)
+
+
+bucket = Bucket()

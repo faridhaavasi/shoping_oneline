@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import Product
 from . import tasks
-
+from django.contrib import messages
 # Create your views here.
 
 class HomePage(View):
@@ -35,6 +35,19 @@ class BucketHome(View):
 
 
 
+
+class DeleteBucketObject(View):
+	def get(self, request, key):
+		tasks.delete_object_task.delay(key)
+		messages.success(request, 'your object will be delete soon.', 'info')
+		return redirect('home:bucket')
+
+
+class DownloadBucketObject(View):
+	def get(self, request, key):
+		tasks.download_object_task.delay(key)
+		messages.success(request, 'your download will start soon.', 'info')
+		return redirect('home:bucket')
 
 
 
