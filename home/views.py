@@ -3,6 +3,7 @@ from django.views.generic import View
 from .models import Product
 from . import tasks
 from django.contrib import messages
+from account.mixins import IsAdminRequiredMixin
 # Create your views here.
 
 class HomePage(View):
@@ -11,14 +12,14 @@ class HomePage(View):
         return render(request, template_name=self.template_name)
 
 
-class ListOfProductsView(View):
+class ListOfProductsView(IsAdminRequiredMixin ,View):
     template_name = 'home/list_of_products.html'
     def get(self, request):
         products = Product.objects.available_True_manager()
         return render(request, self.template_name, {'products': products})
 
 
-class DetailProductView(View):
+class DetailProductView(IsAdminRequiredMixin ,View):
     template_name = 'home/product_detail.html'
     def get(self, request, slug):
         product = Product.objects.get(slug=slug)
@@ -27,7 +28,7 @@ class DetailProductView(View):
 
 
 
-class BucketHome(View):
+class BucketHome(IsAdminRequiredMixin ,View):
 	template_name = 'home/bucket.html'
 	def get(self, request):
 		objects = tasks.all_bucket_objects_task()
@@ -36,7 +37,7 @@ class BucketHome(View):
 
 
 
-class DeleteBucketObject(View):
+class DeleteBucketObject(IsAdminRequiredMixin ,View):
 	def get(self, request, key):
 		tasks.delete_object_task.delay(key)
 		messages.success(request, 'your object will be delete soon.', 'info')
