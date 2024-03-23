@@ -5,6 +5,8 @@ from .managers import ProductManager
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=40)
+    sub_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='sub_category')
+    is_sub = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, max_length=40, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
