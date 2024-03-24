@@ -1,14 +1,20 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
+
 from .managers import ProductManager
 
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=40)
-    sub_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='category')
+    sub_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='nested')
     is_sub = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, max_length=40, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('home:category_filter', args=[self.slug])
+
     def __str__(self):
         return f'{self.name}-{self.created_at}'
 

@@ -13,6 +13,7 @@ urlpatterns = [
     path('bucket', views.BucketHome.as_view(), name='bucket'),
 
     path('products/', views.ListOfProductsView.as_view(), name='list_of_products'),
+    path('category/<slug:category_slug>', views.ListOfProductsView.as_view(), name='category_filter'),
     path('detal/product/<slug:slug>', views.DetailProductView.as_view(), name='detail_product'),
 ]
 

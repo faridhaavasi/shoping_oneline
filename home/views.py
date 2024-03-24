@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .models import Product
+from .models import Product, Category
 from . import tasks
 from django.contrib import messages
 from account.mixins import IsAdminRequiredMixin
@@ -14,9 +14,13 @@ class HomePage(View):
 
 class ListOfProductsView(IsAdminRequiredMixin ,View):
     template_name = 'home/list_of_products.html'
-    def get(self, request):
+    def get(self, request, category_slug=None):
         products = Product.objects.available_True_manager()
-        return render(request, self.template_name, {'products': products})
+        categories = Category.objects.filter(is_sub=False)
+        if category_slug:
+            category = Category.objects.get(slug=category_slug)
+            products = products.filter(category=category)
+        return render(request, self.template_name, {'products': products, 'categories': categories})
 
 
 class DetailProductView(IsAdminRequiredMixin ,View):
