@@ -12,7 +12,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'phone_number', 'full_name')
+        fields = "__all__"
 
     def clean_password2(self):
         # Check that the two password entries match
