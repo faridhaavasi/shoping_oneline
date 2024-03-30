@@ -4,6 +4,7 @@ from .models import Product, Category
 from . import tasks
 from django.contrib import messages
 from account.mixins import IsAdminRequiredMixin
+from orders.forms import CartAddForm
 # Create your views here.
 
 class HomePage(View):
@@ -25,9 +26,11 @@ class ListOfProductsView(IsAdminRequiredMixin ,View):
 
 class DetailProductView(IsAdminRequiredMixin ,View):
     template_name = 'home/product_detail.html'
+    form_class = CartAddForm
     def get(self, request, slug):
         product = Product.objects.get(slug=slug)
-        return render(request, self.template_name, {'product': product})
+        form = self.form_class()
+        return render(request, self.template_name, {'product': product, 'form': form})
 
 
 

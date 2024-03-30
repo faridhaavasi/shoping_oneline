@@ -7,3 +7,6 @@ class CartView(View):
     def get(self, request):
         return render(request, self.template_name, {})
 
+class CartAddView(View):
+    def post(self, request, product_id):
+        pass
