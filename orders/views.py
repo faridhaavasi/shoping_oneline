@@ -12,10 +12,10 @@ class CartView(View):
         return render(request, self.template_name, {'cart': cart})
 
 class CartAddView(View):
-    def post(self, request, product_id):
-        cart = Cart(request)
-        product = get_object_or_404(Product, id=product_id)
-        form = CartAddForm(data=request.POST)
-        if form.is_valid():
-            cart.add(product, form.cleaned_data['quantity'])
-            return redirect('orders:cart')
+	def post(self, request, product_id):
+		cart = Cart(request)
+		product = get_object_or_404(Product, id=product_id)
+		form = CartAddForm(request.POST)
+		if form.is_valid():
+			cart.add(product, form.cleaned_data['quantity'])
+		return redirect('orders:cart')
