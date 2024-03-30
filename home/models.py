@@ -31,6 +31,7 @@ class Product(models.Model):
     category = models.ManyToManyField(Category,  related_name='products')
     description = models.TextField()
     image = models.ImageField()
+    price = models.SmallIntegerField(default=10)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
