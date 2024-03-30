@@ -8,7 +8,7 @@
     {{ product.description }}
     <form action="{% url 'orders:cart_add' product.id %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form }}
     <input type="submit" value="add to cart">
     </form>
 {% endblock content %}
