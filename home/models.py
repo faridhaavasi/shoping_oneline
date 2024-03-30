@@ -39,7 +39,7 @@ class Product(models.Model):
     objects = ProductManager()
 
     def __str__(self):
-        return f'{self.name}-{self.created}-{self.available}'
+        return self.name
 
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
