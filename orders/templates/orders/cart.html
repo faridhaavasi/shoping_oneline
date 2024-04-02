@@ -20,12 +20,8 @@
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.price }}</td>
                 <td>{{ item.total_price }}</td>
-                {% if item.product.id %}
-                    <td><a href="{% url 'orders:cart_remove' item.product.id %}">remove</a></td>
-                {% else %}
-                    <td><a href="{% url 'orders:cart_remove' 0 %}">remove</a></td>
-                {% endif %}
 
+                <td><a href="{% url 'orders:cart_remove' item.product.id %}">remove</a></td>
 
             </tr>
 
