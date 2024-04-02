@@ -23,10 +23,10 @@ class CartAddView(View):
 		return redirect('home:detail_product')
 
 class CartRemoveView(View):
-	def get(self, request, product_id):
+	def get(self, request, product_name):
 		cart = Cart(request)
-		product = get_object_or_404(Product, id=product_id)
+		product = get_object_or_404(Product, name=product_name)
 		cart.remove(product=product)
-		return redirect('home:detail_product')
+		return redirect('orders:cart')
 
 
