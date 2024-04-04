@@ -16,4 +16,4 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = (OrderItemInline,)
 
 
-admin.site.regiser(Coupon)
+admin.site.register(Coupon)
