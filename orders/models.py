@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from home.models import Product
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -37,3 +37,13 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=30, unique=True)
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    discount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(90)])
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.code
